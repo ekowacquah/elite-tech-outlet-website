@@ -1,57 +1,10 @@
-'use strict';
-document.documentElement.classList.add('js');
+const params = new URLSearchParams(location.search);
 const menu = document.querySelector('.menu-toggle');
-const navigation = document.querySelector('#navigation');
-menu.addEventListener('click', () => {
-  const open = menu.getAttribute('aria-expanded') !== 'true';
-  menu.setAttribute('aria-expanded', String(open));
-  navigation.classList.toggle('is-open', open);
-});
-const params = new URLSearchParams(window.location.search);
-const filters = [...document.querySelectorAll('[data-filter]')];
-const search = document.querySelector('#product-search');
-if (search) {
-  const cards = [...document.querySelectorAll('.product-card')];
-  const validCategories = filters.map(button => button.dataset.filter);
-  let category = validCategories.includes(params.get('category')) ? params.get('category') : 'all';
-  const update = () => {
-    const term = search.value.trim().toLowerCase();
-    let count = 0;
-    cards.forEach(card => {
-      const visible = (category === 'all' || card.dataset.category === category) && card.dataset.search.includes(term);
-      card.hidden = !visible;
-      if (visible) count++;
-    });
-    filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === category)));
-    document.querySelector('#product-count').textContent = `${count} ${count === 1 ? 'example' : 'examples'} shown`;
-    document.querySelector('#empty-results').hidden = count !== 0;
-  };
-  filters.forEach(button => button.addEventListener('click', () => { category = button.dataset.filter; update(); }));
-  search.addEventListener('input', update);
-  document.querySelector('#reset-search').addEventListener('click', () => { category = 'all'; search.value = ''; update(); search.focus(); });
-  update();
-}
-const form = document.querySelector('#inquiry-form');
-if (form) {
-  const interest = document.querySelector('#interest');
-  if ([...interest.options].some(option => option.value === params.get('interest'))) interest.value = params.get('interest');
-  let downloadUrl;
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const values = new FormData(form);
-    if (!String(values.get('name')).trim() || String(values.get('message')).trim().length < 10) {
-      document.querySelector('#form-status').textContent = 'Please enter your name and a message of at least 10 non-blank characters.';
-      return;
-    }
-    const text = `ELITE TECH OUTLET — INQUIRY DRAFT\n\nName: ${values.get('name')}\nEmail: ${values.get('email')}\nInterest: ${interest.options[interest.selectedIndex].text}\nBudget: ${values.get('budget') || 'Not specified'}\n\nMessage:\n${values.get('message')}\n\nCreated locally by the demonstration website. No message has been sent.\n`;
-    if (downloadUrl) URL.revokeObjectURL(downloadUrl);
-    downloadUrl = URL.createObjectURL(new Blob([text], {type: 'text/plain;charset=utf-8'}));
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = 'Elite_Tech_Outlet_Inquiry.txt';
-    link.textContent = 'Download your inquiry file';
-    const status = document.querySelector('#form-status');
-    status.replaceChildren('Your inquiry draft is ready. ', link, '. No message was sent.');
-  });
-}
+menu?.addEventListener('click', () => {const open = menu.getAttribute('aria-expanded') !== 'true';menu.setAttribute('aria-expanded', String(open));document.querySelector('.links').classList.toggle('open',open);});
+document.addEventListener('keydown', e => {if(e.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true'){menu.click();menu.focus();}});
+const search = document.querySelector('#search');
+if(search){const buttons=[...document.querySelectorAll('[data-filter]')];const cards=[...document.querySelectorAll('.product')];let category=buttons.some(b=>b.dataset.filter===params.get('category'))?params.get('category'):'all';
+function filter(){let count=0;const query=search.value.toLowerCase().trim();cards.forEach(card=>{const visible=(category==='all'||card.dataset.category===category)&&card.dataset.name.includes(query);card.hidden=!visible;if(visible)count++;});buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===category)));document.querySelector('#result-count').textContent=`${count} ${count===1?'model':'models'} shown`;document.querySelector('#empty').hidden=count>0;}
+buttons.forEach(b=>b.addEventListener('click',()=>{category=b.dataset.filter;filter();}));search.addEventListener('input',filter);document.querySelector('#reset').addEventListener('click',()=>{category='all';search.value='';filter();search.focus();});filter();}
+const form=document.querySelector('#inquiry');if(form){const model=form.elements.model; if([...model.options].some(o=>o.value===params.get('model')))model.value=params.get('model');if(params.get('type')==='wholesale')form.elements.type.value='wholesale';
+form.addEventListener('submit',e=>{e.preventDefault();for(const field of [form.elements.name,form.elements.message]){field.setCustomValidity(field.value.trim()?'':'Please enter a value.');}if(!form.reportValidity())return;const selected=model.selectedOptions[0].text;const text=`Elite Tech Outlet Inquiry\nName: ${form.elements.name.value.trim()}\nEmail: ${form.elements.email.value.trim()}\nType: ${form.elements.type.selectedOptions[0].text}\nModel: ${selected}\n\n${form.elements.message.value.trim()}\n`;const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Elite_Tech_Outlet_Inquiry.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);document.querySelector('#form-status').textContent='Your inquiry file is ready. Nothing has been sent and no order has been placed.';});for(const field of [form.elements.name,form.elements.message])field.addEventListener('input',()=>field.setCustomValidity(''));}
