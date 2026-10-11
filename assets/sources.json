@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "iphone-15",
+    "source": "https://support.apple.com/en-us/111831",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/iphone_15_hero.png",
+    "image": "assets/iphone-15.png",
+    "bytes": 777346
+  },
+  {
+    "slug": "iphone-16",
+    "source": "https://support.apple.com/en-us/121029",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/iphone-16.png",
+    "image": "assets/iphone-16.png",
+    "bytes": 461375
+  },
+  {
+    "slug": "iphone-16-pro",
+    "source": "https://support.apple.com/en-us/121031",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121031-iphone-16-pro.png",
+    "image": "assets/iphone-16-pro.png",
+    "bytes": 492225
+  },
+  {
+    "slug": "iphone-17",
+    "source": "https://support.apple.com/en-us/125089",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/iphone-17-hero.png",
+    "image": "assets/iphone-17.png",
+    "bytes": 529157
+  },
+  {
+    "slug": "macbook-air",
+    "source": "https://support.apple.com/en-us/122210",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/mba-13inch-15inch.png",
+    "image": "assets/macbook-air.png",
+    "bytes": 171299
+  },
+  {
+    "slug": "macbook-pro",
+    "source": "https://support.apple.com/en-us/121552",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/mbp14-m4-2024.png",
+    "image": "assets/macbook-pro.png",
+    "bytes": 258035
+  },
+  {
+    "slug": "ipad",
+    "source": "https://support.apple.com/en-us/122240",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/122240-ipad-a16.png",
+    "image": "assets/ipad.png",
+    "bytes": 262265
+  },
+  {
+    "slug": "ipad-mini",
+    "source": "https://support.apple.com/en-us/121456",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/iPad_mini_A17_Pro_Wi-Fi_Lineup_Print__USEN.png",
+    "image": "assets/ipad-mini.png",
+    "bytes": 462008
+  },
+  {
+    "slug": "apple-watch",
+    "source": "https://support.apple.com/en-us/121202",
+    "image_source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121202-apple-watch-series-10.png",
+    "image": "assets/apple-watch.png"
+  }
+]
